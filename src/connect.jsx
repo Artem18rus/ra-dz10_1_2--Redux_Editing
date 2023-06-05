@@ -1,0 +1,49 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { changeServiceField, addService } from "../actions/actionCreators";
+import { PropTypes } from "PropTypes";
+
+class ServiceAddClassBased extends Component {
+  handleChange = (evt) => {
+    const { name, value } = evt.target;
+    this.props.onChange(name, value);
+  };
+  handleSubmit = (evt) => {
+    const { item } = this.props;
+    evt.preventDefault();
+    this.props.onSave(item.name, item.price);
+  };
+
+  render() {
+    const { item } = this.props;
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <input name="name" onChange={this.handleChange} value={item.name} />
+        <input name="price" onChange={this.handleChange} value={item.price} />
+        <button type="submit">Save</button>
+      </form>
+    );
+  }
+}
+
+ServiceAddClassBased.propTypes = {
+  item: PropTypes.shape({
+    name: PropTypes.string,
+    price: PropTypes.string
+  }).isRequired,
+  onSave: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
+};
+const mapStateToProps = (state) => ({
+  item: state.serviceAdd
+});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onChange: (name, value) => dispatch(changeServiceField(name, value)),
+    onSave: (name, price) => dispatch(addService(name, price))
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ServiceAddClassBased);

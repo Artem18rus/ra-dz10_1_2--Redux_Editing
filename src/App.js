@@ -1,15 +1,15 @@
 import React from "react";
-import './css/App.css';
-import MainPage from "./components/MainPage/MainPage";
+import ServiceAdd from "./components/ServiceAdd";
+import ServiceList from "./components/ServiceList";
+import ServiceFilter from "./components/ServiceFilter";
+import "./css/App.css";
 
-
-
-function App() {
+export default function App() {
   return (
-    <div className="app">
-        <MainPage />
-    </div>
+    <>
+      <ServiceAdd />
+      <ServiceList />
+      <ServiceFilter />
+    </>
   );
 }
-
-export default App;
